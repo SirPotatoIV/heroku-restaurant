@@ -91,21 +91,21 @@
             // axios.get("/api/reservations")
             // sends a post to our server that contains newReservation.
             axios.post("/api/reservations", newReservation)
-            .then(function(response) {
-                const data = JSON.parse(response);
+            .then(function({data}) {
                 // Once server sends back response (res), we check if it passed anything, if it did, reservation added, if not, waitlist.
                 if (data.type === "reservation"){
                     alert("Added Reservation.");
-                    console.log(res);
+                    console.log(data);
                 }
                 else {
                     alert("Sorry you are on the waitlist");
+                    console.log(data)
                 }
                 // Used to clear the values in the reservation form after submit has occured.
                 document.getElementById("reserve_name").value = "";
                 document.getElementById("reserve_phone").value = "";
                 document.getElementById("reserve_email").value = "";
-                console.log(newReservation);
+                // console.log(newReservation);
             });
         });
     </script>
