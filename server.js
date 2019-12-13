@@ -75,7 +75,7 @@
         res.sendFile(path.join(__dirname, "home.html"));
     });
 
-    app.get("/reservations", function(req, res) {
+    app.get("/reserve", function(req, res) {
         res.sendFile(path.join(__dirname, "reserve.html"));
     });
     // Starts the server to begin listening
