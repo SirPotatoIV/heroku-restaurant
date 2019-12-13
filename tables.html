@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tables Page</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
+    <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <style>
+        *,
+        *::after,
+        *::before {
+        box-sizing: border-box;
+        }
+        html, body {
+        padding: 0;
+        margin: 0;
+        }
+ 
+        body {
+         background-color:whitesmoke;
+         
+        }
+        .colorjumb{
+            background-color:#C0C0C0;
+        }
+       
+     </style>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron colorjumb">
+      <h1 class="text-center"> <span> <i class="fas fa-fire-alt"></i></span> Hot Restaurant</h1>
+      <hr>
+      <h2 class="text-center">Current Reservations and Waiting List</h2>
+      <br>
+      <div class="text-center">
+        <a href="./reserve.html"><button type="button" class="btn btn-lg btn-danger"><span> <i class="far fa-credit-card"></i></span>  Make Reservation</button></a>
+        <a href="./home.html"><button type="button" class="btn btn-lg"><span> <i class="fas fa-home"></i></span></button></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Current Tables -->
+        <div class="card colorjumb">
+          <div class="card-header">
+            <h4 class="card-title">Current Reservations</h4>
+          </div>
+          <div class="card-body" id="tablejs">
+          </div>
+        </div>
+        <!-- Waiting List Panel -->
+        <div class="card colorjumb mt-5">
+          <div class="card-header">
+            <h4 class="card-title">Waiting List</h4>
+          </div>
+          <div class="card-body" id="waitlistjs">
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p> <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a> </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
