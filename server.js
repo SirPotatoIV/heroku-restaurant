@@ -78,25 +78,26 @@
     app.get("/reserve", function(req, res) {
         res.sendFile(path.join(__dirname, "reserve.html"));
     });
+    // * Use jQuery to run AJAX calls to GET and POST data from users to the Express server
+    
+    // Question: What does this code do?
+    document.getElementById("submit-reservation").addEventListener("click", function(event) {
+        event.preventDefault();
+        var newReservations = {
+            name: document.getElementById("reserve_name").value.trim(),
+            role: document.getElementById("reserve_phone").value.trim(),
+            age: document.getElementById("reserve_email").value.trim(),
+        };
+        // Question: What does this code do??
+        axios.post("/api/reservations", newReservations)
+        .then(function(data) {
+            console.log("add.reservation", data);
+            alert("Added Reservation...");
+        });
+    });
+    
     // Starts the server to begin listening
     // =============================================================
     app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
     });
-    // * Use jQuery to run AJAX calls to GET and POST data from users to the Express server
-
-      // Question: What does this code do?
-      document.getElementById("submit-reservation").addEventListener("click", function(event) {
-        event.preventDefault();
-        var newReservations = {
-          name: document.getElementById("reserve_name").value.trim(),
-          role: document.getElementById("reserve_phone").value.trim(),
-          age: document.getElementById("reserve_email").value.trim(),
-        };
-        // Question: What does this code do??
-        axios.post("/api/reservations", newReservations)
-          .then(function(data) {
-            console.log("add.reservation", data);
-            alert("Added Reservation...");
-          });
-      });
