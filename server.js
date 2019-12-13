@@ -74,9 +74,13 @@
     app.get("/home", function(req, res) {
         res.sendFile(path.join(__dirname, "home.html"));
     });
-    // * Use jQuery to run AJAX calls to GET and POST data from users to the Express server
+
+    app.get("/reservations", function(req, res) {
+        res.sendFile(path.join(__dirname, "reserve.html"));
+    });
     // Starts the server to begin listening
     // =============================================================
     app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
     });
+    // * Use jQuery to run AJAX calls to GET and POST data from users to the Express server
