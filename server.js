@@ -28,14 +28,14 @@ app.get("/api/waitlist", function(req, res) {
 // Create New Reservation - takes in JSON input
 app.post("/api/reservations", function(req, res) {
     // Checks to see how many reservations there currently are
-    if(reservations.length < 6){
+    if(reservations.length < 5){
         // req.body hosts is equal to the JSON post sent from the user
         // This works because of our body parsing middleware
         const newReservations = req.body;
         
         // Using a RegEx Pattern to remove spaces from newCharacter
         // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        newReservations.routeName = newReservations.name.replace(/\s+/g, "").toLowerCase();
+        newReservations.type = "reservation";
         
         // Console logs the newReservation information in the server side console.
         console.log(newReservations);
@@ -54,10 +54,10 @@ app.post("/api/reservations", function(req, res) {
         
         // Using a RegEx Pattern to remove spaces from newCharacter
         // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        newWaitlist.name = newWaitlist.routeName = newWaitlist.name.replace(/\s+/g, "").toLowerCase();
-        
+        newReservations.type = "waitlist";
         // Console logs the newWaitlist information in the server side console.
         console.log(newWaitlist);
+        res.json(newWaitlist)
                     
         // Adds the new waitlist to our array waitlist
         waitlist.push(newWaitlist);
