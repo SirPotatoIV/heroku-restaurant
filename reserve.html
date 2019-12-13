@@ -74,5 +74,38 @@
           </div>
         </footer>
     </div>
+    <!-- Axios script so axios can be used -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script >
+         // * Use javascript to run Axios calls to GET and POST data from users to the Express server
+        // In this code below we use  "POSTS"  to post our form data to our express server.
+        //  when we hit submit, we grab all of the fields then sends a post request to our api
+        document.getElementById("submit-reservation").addEventListener("click", function(event) {
+            event.preventDefault();
+            //creates a new object out of the reservation information.
+            let newReservation = {
+                name: document.getElementById("reserve_name").value.trim(),
+                phone: document.getElementById("reserve_phone").value.trim(),
+                email: document.getElementById("reserve_email").value.trim(),
+            };
+            // axios.get("/api/reservations")
+            // sends a post to our server that contains newReservation.
+            axios.post("/api/reservations", newReservation)
+            .then(function(res) {
+                // Once server sends back response (res), we check if it passed anything, if it did, reservation added, if not, waitlist.
+                if (res){
+                    alert("Added Reservation.");
+                }
+                else {
+                    alert("Sorry you are on the wait list");
+                }
+                // Used to clear the values in the reservation form after submit has occured.
+                document.getElementById("reserve_name").value("");
+                document.getElementById("reserve_phone").value("");
+                document.getElementById("reserve_email").value("");
+                console.log(newReservation);
+            });
+        });
+    </script>
 </body>
 </html>

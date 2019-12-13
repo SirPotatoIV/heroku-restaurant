@@ -12,59 +12,58 @@
     app.use(express.json());
 
     // * Create a few array variables that will hold the data
-    const reservations = [{
-        name: "jake",
-        date: "10/10",
-        guests: 2
-    }];
-    const waitlist = [{
-        name: "kristen",
-        date: "10/10",
-        guests: 2
-    }];
+    const reservations = [];
+    const waitlist = [];
     // * Create a set of routes for getting and posting table data
     // Display all reservations
     app.get("/api/reservations", function(req, res) {
         return res.json(reservations);
     });
-    
+    // Display all waitlists
     app.get("/api/waitlist", function(req, res) {
         return res.json(waitlist);
     });
     
     // Create New Reservation - takes in JSON input
     app.post("/api/reservations", function(req, res) {
-        // req.body hosts is equal to the JSON post sent from the user
-        // This works because of our body parsing middleware
-        const newReservations = req.body;
-        
-        // Using a RegEx Pattern to remove spaces from newCharacter
-        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        newReservations.routeName = newReservations.name.replace(/\s+/g, "").toLowerCase();
-        
-        console.log(newReservations);
-        
-        reservations.push(newReservations);
-        
-        res.json(newReservations);
+        // Checks to see how many reservations there currently are
+        if(reservations.length < 6){
+            // req.body hosts is equal to the JSON post sent from the user
+            // This works because of our body parsing middleware
+            const newReservations = req.body;
+            
+            // Using a RegEx Pattern to remove spaces from newCharacter
+            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+            newReservations.routeName = newReservations.name.replace(/\s+/g, "").toLowerCase();
+            
+            // Console logs the newReservation information in the server side console.
+            console.log(newReservations);
+            
+            // Adds the new reservation to our array reservations
+            reservations.push(newReservations);
+            
+            // Sends the newReservation back to the front-end
+            res.json(newReservations);
+        // If there are already 5 reservations, the reservation request goes to the waitlist
+        }else{
+            
+            // req.body hosts is equal to the JSON post sent from the user
+            // This works because of our body parsing middleware
+            const newWaitlist = req.body;
+            
+            // Using a RegEx Pattern to remove spaces from newCharacter
+            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+            newWaitlist.name = newWaitlist.routeName = newWaitlist.name.replace(/\s+/g, "").toLowerCase();
+            
+            // Console logs the newWaitlist information in the server side console.
+            console.log(newWaitlist);
+                        
+            // Adds the new waitlist to our array waitlist
+            waitlist.push(newWaitlist);
+        }
     });
 
-    // Create New Reservation - takes in JSON input
-    app.post("/api/waitlist", function(req, res) {
-        // req.body hosts is equal to the JSON post sent from the user
-        // This works because of our body parsing middleware
-        const newWaitlist = req.body;
-        
-        // Using a RegEx Pattern to remove spaces from newCharacter
-        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        newWaitlist.routeName = newWaitlist.name.replace(/\s+/g, "").toLowerCase();
-        
-        console.log(newWaitlist);
-        
-        waitlist.push(newWaitlist);
-        
-        res.json(newWaitlist);
-    });
+   
     // * Create a set of routes for displaying the HTML pages
     // Basic route that sends the user first to the AJAX Page
     app.get("/", function(req, res) {
@@ -78,23 +77,7 @@
     app.get("/reserve", function(req, res) {
         res.sendFile(path.join(__dirname, "reserve.html"));
     });
-    // * Use jQuery to run AJAX calls to GET and POST data from users to the Express server
     
-    // Question: What does this code do?
-    document.getElementById("submit-reservation").addEventListener("click", function(event) {
-        event.preventDefault();
-        var newReservations = {
-            name: document.getElementById("reserve_name").value.trim(),
-            role: document.getElementById("reserve_phone").value.trim(),
-            age: document.getElementById("reserve_email").value.trim(),
-        };
-        // Question: What does this code do??
-        axios.post("/api/reservations", newReservations)
-        .then(function(data) {
-            console.log("add.reservation", data);
-            alert("Added Reservation...");
-        });
-    });
     
     // Starts the server to begin listening
     // =============================================================
